@@ -1,46 +1,64 @@
-"use client";
-import { motion } from 'framer-motion';
+"use client"; // <-- CORRECTED: Changed "use-client" to "use client"
 
-const aboutData = {
-  bio: "I am a frontend developer based in Neo-Kyoto, with a strong passion for creating immersive and visually stunning digital experiences. My journey into code began with a fascination for cyberpunk aesthetics and interactive storytelling, leading me to specialize in crafting fluid, futuristic user interfaces.",
-  timeline: [
-    { year: 2021, event: "Started my coding journey, diving deep into JavaScript and modern web frameworks." },
-    { year: 2023, event: "Graduated from the OmniTech University with a degree in Digital Systems Design." },
-    { year: 2024, event: "Joined CyberCorp as a Junior Frontend Developer, contributing to next-gen interfaces." },
-    { year: 2025, event: "Began freelancing to explore more creative and unconventional projects in the digital space." },
-  ]
-};
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import Lottie from "lottie-react";
+import thinkingAnimation from "../Lottie/thinking.json"; // Update the path if needed
+import { TextScramble } from "../ui/TextScramble";
+import { TextRoll } from "../ui/TextRoll";
 
 const About = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+
   return (
-    <section className="w-full py-16 px-8 bg-cyber-blue">
-      <h2 className="text-4xl text-center font-bold text-cyber-pink mb-10">/ about-me</h2>
-      <div className="max-w-4xl mx-auto">
-        <motion.p
-          className="text-lg text-center mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+    <section ref={sectionRef} className="w-full py-20 px-6 md:px-12 bg-cyber-blue">
+      {/* Heading */}
+      <h2 className="text-4xl md:text-5xl text-center font-bold text-cyber-pink mb-14">
+        <TextRoll trigger={isInView}>{"About Me"}</TextRoll>
+      </h2>
+
+      {/* Content Grid */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+        
+        {/* LEFT: Text Section */}
+        <motion.div
+          className="lg:col-span-2 space-y-8 text-center lg:text-left px-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8 }}
         >
-          {aboutData.bio}
-        </motion.p>
-        <div className="relative border-l-2 border-cyber-cyan">
-          {aboutData.timeline.map((item, index) => (
-            <motion.div
-              key={index}
-              className="mb-10 ml-6"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-            >
-              <span className="absolute flex items-center justify-center w-6 h-6 bg-cyber-cyan rounded-full -left-3"></span>
-              <h3 className="text-lg font-semibold text-cyber-pink">{item.year}</h3>
-              <p className="text-base text-white">{item.event}</p>
-            </motion.div>
-          ))}
-        </div>
+          <TextScramble
+            as="p"
+            className="text-xl md:text-2xl leading-relaxed text-gray-300"
+            trigger={isInView}
+          >
+            I'm a <span className="text-cyber-pink font-semibold">Full-Stack Developer</span>, 
+            backed by a B.Tech in Information Technology from NSUT with a specialization in{" "}
+            <span className="text-cyber-cyan font-semibold">Machine Learning</span>. 
+            My approach is to engineer robust, scalable, and efficient end-to-end solutions that live at the intersection of technology and creativity. Inspired by art, music, and{" "}
+            <span className="text-cyber-green font-semibold">great design</span>
+            —from UI/UX to software and games—I'm actively exploring the worlds of{" "}
+            <span className="text-cyber-orange font-semibold">Game Development and Artificial Intelligence</span>, 
+            always looking for new ways to build more immersive and intelligent digital experiences.
+          </TextScramble>
+        </motion.div>
+
+        {/* RIGHT: Lottie Animation */}
+        <motion.div
+          className="lg:col-span-1 flex justify-center lg:justify-end"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <Lottie
+            animationData={thinkingAnimation}
+            loop={true}
+            className="w-[20rem] h-[20rem] md:w-[26rem] md:h-[26rem] lg:w-[30rem] lg:h-[30rem]"
+          />
+        </motion.div>
       </div>
     </section>
   );

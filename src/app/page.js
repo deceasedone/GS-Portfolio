@@ -12,10 +12,10 @@ export default function Home() {
       <Hero />
       <About />
       <Experience />
-      <Projects />
+      <Projects limit={3} showMoreLink={true} />
       <Skills />
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 px-8 py-16">
-        <ComingSoon title="Generative Design" />
+        <ComingSoon title="Design & Art" />
         <ComingSoon title="Game Development" />
       </div>
       <Contact />
