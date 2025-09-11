@@ -17,7 +17,7 @@ export default function Contact() {
         email: '',
         message: '',
     });
-    const [status, setStatus] = useState(''); // '', 'sending', 'success', 'error'
+    const [status, setStatus] = useState(''); 
 
     // 👈 2. CREATE A HANDLER TO UPDATE STATE ON INPUT CHANGE
     const handleChange = (e) => {
@@ -44,7 +44,7 @@ export default function Contact() {
 
             if (response.ok) {
                 setStatus('success');
-                setFormData({ name: '', email: '', message: '' }); // Clear form on success
+                setFormData({ name: '', email: '', message: '' }); 
             } else {
                 setStatus('error');
             }
@@ -101,9 +101,9 @@ export default function Contact() {
                                     name="name"
                                     className="w-full px-4 py-3 rounded-lg bg-[#0b0f1a]/70 border border-[#22263a] text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#32f0ff]/60 focus:border-[#32f0ff] transition-all"
                                     placeholder="Your full name"
-                                    value={formData.name}       // 👈 Add value
-                                    onChange={handleChange}    // 👈 Add onChange
-                                    required                    // 👈 Add required
+                                    value={formData.name}       
+                                    onChange={handleChange}    
+                                    required                    
                                 />
                             </div>
 
@@ -115,9 +115,9 @@ export default function Contact() {
                                     name="email"
                                     className="w-full px-4 py-3 rounded-lg bg-[#0b0f1a]/70 border border-[#22263a] text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#32f0ff]/60 focus:border-[#32f0ff] transition-all"
                                     placeholder="your.email@example.com"
-                                    value={formData.email}      // 👈 Add value
-                                    onChange={handleChange}     // 👈 Add onChange
-                                    required                     // 👈 Add required
+                                    value={formData.email}     
+                                    onChange={handleChange}    
+                                    required                     
                                 />
                             </div>
 
@@ -129,9 +129,9 @@ export default function Contact() {
                                     rows={5}
                                     className="w-full px-4 py-3 rounded-lg bg-[#0b0f1a]/70 border border-[#22263a] text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#32f0ff]/60 focus:border-[#32f0ff] transition-all resize-none"
                                     placeholder="Tell me about your project or opportunity..."
-                                    value={formData.message}    // 👈 Add value
-                                    onChange={handleChange}     // 👈 Add onChange
-                                    required                    // 👈 Add required
+                                    value={formData.message}    
+                                    onChange={handleChange}     
+                                    required                   
                                 />
                             </div>
 
@@ -180,7 +180,7 @@ const itemVariants = { open: { y: 0, opacity: 1, transition: { y: { stiffness: 1
 const sidebarVariants = { open: (height = 1000) => ({ clipPath: `circle(${height * 2 + 200}px at 40px 40px)`, transition: { type: "spring", stiffness: 20, restDelta: 2 } }), closed: { clipPath: "circle(30px at 40px 40px)", transition: { delay: 0.2, type: "spring", stiffness: 400, damping: 40 } } };
 
 /* ====== Social Navigation ====== */
-const socialLinks = [ { name: "LinkedIn", url: "https://www.linkedin.com/in/gaurav-sinha-aa4706270/", icon: "💼", color: "#0077B5" }, { name: "Email", url: "gauravsinha01ft@gmail.com", icon: "📧", color: "#EA4335" }, { name: "GitHub", url: "https://github.com/deceasedone", icon: "💻", color: "#333333" }, { name: "Coding", url: "https://deceasedone.github.io/hl-page/", icon: "🧩", color: "#FFA116" }, { name: "Resume", url: "https://drive.google.com/file/d/1v-tnzc9FffKevlLLY51ZpUyiVRi8mcD4/view?usp=sharing", icon: "📝", color: "#008000" } ];
+const socialLinks = [ { name: "LinkedIn", url: "https://www.linkedin.com/in/gaurav-sinha-aa4706270/", icon: "💼", color: "#0077B5" }, { name: "Email", url: "gauravsinha01ft@gmail.com", icon: "📧", color: "#EA4335" }, { name: "GitHub", url: "https://github.com/deceasedone", icon: "💻", color: "#333333" }, { name: "Coding", url: "https://deceasedone.github.io/hl-page/", icon: "🧩", color: "#FFA116" }, { name: "Resume", url: "https://drive.google.com/file/d/1Fh6GdPggQ8iIoIJxQRg98q8TNQthaOMW/view?usp=sharing", icon: "📝", color: "#008000" } ];
 const SocialNavigation = ({ isOpen }) => ( <motion.ul className="absolute top-24 left-6 z-20 space-y-4" variants={navVariants} style={{ pointerEvents: isOpen ? 'auto' : 'none' }} > {socialLinks.map((link) => ( <SocialMenuItem key={link.name} link={link} /> ))} </motion.ul> );
 const SocialMenuItem = ({ link }) => { const [copied, setCopied] = useState(false); const handleClick = () => { const isEmail = link.name === "Email" || link.url.includes("@"); if (isEmail) { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(link.url) .then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500) }) .catch(() => {}) } } else { window.open(link.url, "_blank") } }; return ( <motion.li className="flex items-center cursor-pointer" variants={itemVariants} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleClick} aria-label={link.name} title={link.name} > <div className="w-12 h-12 rounded-full flex items-center justify-center text-xl mr-4 shadow-[0_0_14px_rgba(50,240,255,0.15)]" style={{ backgroundColor: link.color + '20', border: `2px solid ${link.color}` }} > {link.icon} </div> <div className="px-4 py-2 rounded-lg border-2 min-w-28 bg-[#0b0f1a]/70 text-white shadow-[0_0_14px_rgba(255,73,219,0.08)]" style={{ borderColor: link.color }} > <span className="font-medium text-gray-100">{copied ? "Copied!" : link.name}</span> </div> </motion.li> ) };
 
